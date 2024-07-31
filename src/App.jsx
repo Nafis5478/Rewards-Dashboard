@@ -10,8 +10,8 @@ function App() {
     <Router>
       <div className="container mx-auto p-4">
         <Routes>
-          <Route path="/" element={<Dashboard />} />
-          <Route path="/rewards" element={<RewardsList />} />
+          {/* <Route path="/" element={<Dashboard />} /> */}
+          <Route path="/" element={<RewardsList />} />
           <Route path="/reward/:id" element={<RewardDetails />} />
         </Routes>
       </div>

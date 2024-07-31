@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { Link } from 'react-router-dom';
+
 function RewardsList() {
   const [rewards, setRewards] = useState([]);
   const [filteredRewards, setFilteredRewards] = useState([]);
+  const [totalRewardPoints, setTotalRewardPoints] = useState(0);
   const [searchParams, setSearchParams] = useSearchParams();
 
   useEffect(() => {
@@ -45,7 +47,15 @@ function RewardsList() {
     });
 
     setFilteredRewards(data);
+
+    // Calculate total reward points
+    const totalPoints = data.reduce((acc, curr) => acc + curr.rewardPoints, 0);
+    setTotalRewardPoints(totalPoints);
   }, [rewards, searchParams]);
+
+  const clearFilters = () => {
+    setSearchParams({});
+  };
 
   return (
     <div>
@@ -97,6 +107,16 @@ function RewardsList() {
         </select>
       </div>
 
+      <div className="mb-4">
+        <button onClick={clearFilters} className="bg-red-500 text-white px-4 py-2 rounded">
+          Clear Filters
+        </button>
+      </div>
+
+      <div className="mb-4">
+        <h2 className="text-xl font-semibold">Total Reward Points: {totalRewardPoints}</h2>
+      </div>
+
       <ul className="list-disc pl-5">
         {filteredRewards.map(reward => (
           <li key={reward.id} className="mb-2">
@@ -111,5 +131,3 @@ function RewardsList() {
 }
 
 export default RewardsList;
-
-// export default RewardsList;
