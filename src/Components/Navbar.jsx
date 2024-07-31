@@ -16,7 +16,7 @@ function Navbar() {
   };
 
   return (
-    <div className="mb-4 flex flex-row gap-16 border-2 border-black justify-center pt-4 items-center">
+    <div className="mb-4 flex flex-row bg-gray-200 gap-16 justify-center pt-4 items-center ">
       <h1 className="text-2xl font-bold mb-4 items-center flex flex-col">
         <p>Rewards</p>
         <p>Dashboard</p>
@@ -28,7 +28,7 @@ function Navbar() {
           value={searchParams.get("brand") || ""}
           placeholder="Search Brands"
           onChange={(e) => handleInputChange("brand", e.target.value)}
-          className="border p-2 w-full"
+          className="border p-2 w-full rounded-lg"
         />
       </div>
       {/* date range filter */}
@@ -40,7 +40,7 @@ function Navbar() {
             value={searchParams.get("from") || ""}
             //   placeholder='Start Date'
             onChange={(e) => handleInputChange("from", e.target.value)}
-            className="border p-2 mr-2"
+            className="border p-2 mr-2 rounded-lg"
           />
         </div>
         <div className="flex flex-row">
@@ -50,7 +50,7 @@ function Navbar() {
             value={searchParams.get("to") || ""}
             //   placeholder='End Date'
             onChange={(e) => handleInputChange("to", e.target.value)}
-            className="border p-2"
+            className="border p-2 rounded-lg"
           />
         </div>
       </div>
@@ -60,7 +60,7 @@ function Navbar() {
         <select
           value={searchParams.get("sortKey") || "purchaseDate"}
           onChange={(e) => handleInputChange("sortKey", e.target.value)}
-          className="border p-2 mr-2"
+          className="border p-2 mr-2 rounded-lg"
         >
           <option value="purchaseDate">Purchase Date</option>
           <option value="rewardPoints">Reward Points</option>
@@ -68,7 +68,7 @@ function Navbar() {
         <select
           value={searchParams.get("sortOrder") || "asc"}
           onChange={(e) => handleInputChange("sortOrder", e.target.value)}
-          className="border p-2"
+          className="border p-2 rounded-lg"
         >
           <option value="asc">Ascending</option>
           <option value="desc">Descending</option>
@@ -78,7 +78,7 @@ function Navbar() {
       <div className="mb-4">
         <button
           onClick={clearFilters}
-          className="bg-red-500 text-white px-4 py-2 rounded"
+          className="bg-black text-white px-4 py-2 rounded-lg hover:bg-gray-500 duration-500"
         >
           Clear Filters
         </button>
