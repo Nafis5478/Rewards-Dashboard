@@ -1,18 +1,18 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import Dashboard from './Pages/Dashboard.jsx';
-import RewardsList from './Pages/RewardsList.jsx';
-// import RewardDetails from './components/RewardDetails';
-import RewardDetails from './Pages/RewardsDetails.jsx'
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import RewardsList from './Pages/RewardsList.jsx'
+import Navbar from './Components/Navbar.jsx';
+import RewardDetails from './Pages/RewardsDetails.jsx';
 
 function App() {
   return (
     <Router>
-      <div className="container mx-auto p-4">
+      <div>
+        <Navbar />
         <Routes>
-          {/* <Route path="/" element={<Dashboard />} /> */}
           <Route path="/" element={<RewardsList />} />
           <Route path="/reward/:id" element={<RewardDetails />} />
+          {/* You can add more routes here for other components or pages */}
         </Routes>
       </div>
     </Router>

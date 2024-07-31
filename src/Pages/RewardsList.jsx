@@ -6,7 +6,7 @@ function RewardsList() {
   const [rewards, setRewards] = useState([]);
   const [filteredRewards, setFilteredRewards] = useState([]);
   const [totalRewardPoints, setTotalRewardPoints] = useState(0);
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
 
   useEffect(() => {
     fetch('https://mocki.io/v1/68f88502-a805-4d24-a407-ee2a232a5c60')
@@ -53,65 +53,11 @@ function RewardsList() {
     setTotalRewardPoints(totalPoints);
   }, [rewards, searchParams]);
 
-  const clearFilters = () => {
-    setSearchParams({});
-  };
-
   return (
     <div>
-      <h1 className="text-2xl font-bold mb-4">Rewards Dashboard</h1>
+      
+      
 
-      <div className="mb-4">
-        <label className="block mb-2">Filter by Brand:</label>
-        <input
-          type="text"
-          value={searchParams.get('brand') || ''}
-          onChange={e => setSearchParams({ ...Object.fromEntries(searchParams.entries()), brand: e.target.value })}
-          className="border p-2 w-full"
-        />
-      </div>
-
-      <div className="mb-4">
-        <label className="block mb-2">Filter by Date Range:</label>
-        <input
-          type="date"
-          value={searchParams.get('from') || ''}
-          onChange={e => setSearchParams({ ...Object.fromEntries(searchParams.entries()), from: e.target.value })}
-          className="border p-2 mr-2"
-        />
-        <input
-          type="date"
-          value={searchParams.get('to') || ''}
-          onChange={e => setSearchParams({ ...Object.fromEntries(searchParams.entries()), to: e.target.value })}
-          className="border p-2"
-        />
-      </div>
-
-      <div className="mb-4">
-        <label className="block mb-2">Sort by:</label>
-        <select
-          value={searchParams.get('sortKey') || 'purchaseDate'}
-          onChange={e => setSearchParams({ ...Object.fromEntries(searchParams.entries()), sortKey: e.target.value })}
-          className="border p-2 mr-2"
-        >
-          <option value="purchaseDate">Purchase Date</option>
-          <option value="rewardPoints">Reward Points</option>
-        </select>
-        <select
-          value={searchParams.get('sortOrder') || 'asc'}
-          onChange={e => setSearchParams({ ...Object.fromEntries(searchParams.entries()), sortOrder: e.target.value })}
-          className="border p-2"
-        >
-          <option value="asc">Ascending</option>
-          <option value="desc">Descending</option>
-        </select>
-      </div>
-
-      <div className="mb-4">
-        <button onClick={clearFilters} className="bg-red-500 text-white px-4 py-2 rounded">
-          Clear Filters
-        </button>
-      </div>
 
       <div className="mb-4">
         <h2 className="text-xl font-semibold">Total Reward Points: {totalRewardPoints}</h2>
