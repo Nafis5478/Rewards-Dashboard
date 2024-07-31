@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
-import { useSearchParams } from 'react-router-dom';
-import { Link } from 'react-router-dom';
+import React, { useEffect, useState } from "react";
+import { useSearchParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 function RewardsList() {
   const [rewards, setRewards] = useState([]);
@@ -9,37 +9,39 @@ function RewardsList() {
   const [searchParams] = useSearchParams();
 
   useEffect(() => {
-    fetch('https://mocki.io/v1/68f88502-a805-4d24-a407-ee2a232a5c60')
-      .then(response => response.json())
-      .then(data => setRewards(data));
+    fetch("https://mocki.io/v1/68f88502-a805-4d24-a407-ee2a232a5c60")
+      .then((response) => response.json())
+      .then((data) => setRewards(data));
   }, []);
 
   useEffect(() => {
     let data = [...rewards];
 
     // Apply brand filter
-    const brand = searchParams.get('brand') || '';
+    const brand = searchParams.get("brand") || "";
     if (brand) {
-      data = data.filter(item => item.brand.toLowerCase().includes(brand.toLowerCase()));
+      data = data.filter((item) =>
+        item.brand.toLowerCase().includes(brand.toLowerCase())
+      );
     }
 
     // Apply date range filter
-    const from = searchParams.get('from') || '';
-    const to = searchParams.get('to') || '';
+    const from = searchParams.get("from") || "";
+    const to = searchParams.get("to") || "";
     if (from && to) {
       const fromDate = new Date(from);
       const toDate = new Date(to);
-      data = data.filter(item => {
+      data = data.filter((item) => {
         const purchaseDate = new Date(item.purchaseDate);
         return purchaseDate >= fromDate && purchaseDate <= toDate;
       });
     }
 
     // Apply sorting
-    const sortKey = searchParams.get('sortKey') || 'purchaseDate';
-    const sortOrder = searchParams.get('sortOrder') || 'asc';
+    const sortKey = searchParams.get("sortKey") || "purchaseDate";
+    const sortOrder = searchParams.get("sortOrder") || "asc";
     data = data.sort((a, b) => {
-      if (sortOrder === 'asc') {
+      if (sortOrder === "asc") {
         return a[sortKey] > b[sortKey] ? 1 : -1;
       } else {
         return a[sortKey] < b[sortKey] ? 1 : -1;
@@ -55,23 +57,53 @@ function RewardsList() {
 
   return (
     <div>
-      
-      
-
-
-      <div className="mb-4">
-        <h2 className="text-xl font-semibold">Total Reward Points: {totalRewardPoints}</h2>
+      <div className="lg:hidden font-bold mb-3 ml-2">
+        Total Rewards earned: {totalRewardPoints}
       </div>
+      <div className="flex flex-row justify-center mx-28 lg:mx-44 ">
+        <table className="min-w-full bg-white border-spacing-y-8 ">
+          <thead>
+            <tr>
+              <th className="py-4 px-4 bg-slate-200 text-left">Brand Name</th>
+              <th className="py-4 px-4 bg-slate-200 text-left">Purchase Date</th>
+              <th className="py-4 px-4 bg-slate-200 text-left">Points</th>
+            </tr>
+          </thead>
+          <tbody className="">
+            {filteredRewards.map((reward) => (
+              <tr key={reward.id} className=" hover:bg-slate-200 duration-500 ">
+                <td className="py-4 pl-8">
+                <Link to={`/reward/${reward.id}`} className="block w-full h-full">
+                  {reward.brand}
+                </Link>
+                </td>
+                <td className="py-4 px-4">
+                <Link to={`/reward/${reward.id}`} className="block w-full h-full">
+                  {reward.purchaseDate}
+                </Link>
+                </td>
+                <td className="py-4 px-4">
+                <Link to={`/reward/${reward.id}`} className="block w-full h-full">
+                  {reward.rewardPoints}
+                </Link>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <div className="mb-4 hidden lg:block">
+        <h2 className="text-xl font-semibold fixed bottom-3 right-3 flex flex-col justify-center items-center border-2 border-black rounded-md p-2">
+          <div>
+            
+          Total Rewards:
+          </div>
+          <div>
 
-      <ul className="list-disc pl-5">
-        {filteredRewards.map(reward => (
-          <li key={reward.id} className="mb-2">
-            <Link to={`/reward/${reward.id}`}>
-              {reward.brand} - {reward.purchaseDate} - {reward.rewardPoints} points
-            </Link>
-          </li>
-        ))}
-      </ul>
+          {totalRewardPoints}
+          </div>
+        </h2>
+      </div>
     </div>
   );
 }
