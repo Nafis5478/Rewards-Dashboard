@@ -93,7 +93,7 @@ function RewardsList() {
         </table>
       </div>
       <div className="mb-4 hidden lg:block">
-        <h2 className="text-xl font-semibold fixed bottom-3 right-3 flex flex-col justify-center items-center border-2 border-black rounded-md p-2">
+        <h2 className="text-xl bg-orange-100 hover:cursor-pointer font-semibold fixed bottom-3 right-3 flex flex-col justify-center items-center border-2 border-black rounded-md p-2">
           <div>
             
           Total Rewards:

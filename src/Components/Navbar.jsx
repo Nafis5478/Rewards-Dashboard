@@ -5,7 +5,7 @@ import { FaBars } from "react-icons/fa";
 import { FaRegWindowClose } from "react-icons/fa";
 function Navbar() {
   const [searchParams, setSearchParams] = useSearchParams();
-  const [bar, setbar] = useState(0);
+  const [bar, setbar] = useState(1);
   const handleInputChange = (key, value) => {
     setSearchParams({
       ...Object.fromEntries(searchParams.entries()),
