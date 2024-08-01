@@ -12,7 +12,6 @@ function App() {
         <Routes>
           <Route path="/" element={<RewardsList />} />
           <Route path="/reward/:id" element={<RewardDetails />} />
-          {/* You can add more routes here for other components or pages */}
         </Routes>
       </div>
     </Router>
