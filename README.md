@@ -2,10 +2,9 @@
 
 **Install Dependencies**
 
-npm i
+npm install
 
 
-npm i react-icons
 
 **To run**
 
