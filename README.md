@@ -1,4 +1,12 @@
 # React + Vite
 
-npm install
-npm run dev
+**Install Dependencies**
+
+npm i
+
+
+npm i react-icons
+
+**To run**
+
+npm run start
