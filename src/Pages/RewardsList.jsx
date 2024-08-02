@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { useSearchParams } from "react-router-dom";
-import { Link } from "react-router-dom";
+import { useSearchParams, useNavigate } from "react-router-dom";
 
 function RewardsList() {
   const [rewards, setRewards] = useState([]);
   const [filteredRewards, setFilteredRewards] = useState([]);
   const [totalRewardPoints, setTotalRewardPoints] = useState(0);
   const [searchParams] = useSearchParams();
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetch("https://mocki.io/v1/68f88502-a805-4d24-a407-ee2a232a5c60")
@@ -57,53 +57,39 @@ function RewardsList() {
 
   return (
     <div>
-      <div className="lg:hidden font-bold mb-3 ml-2">
-        Total Rewards earned: {totalRewardPoints}
+      <div className="mb-4">
+        <h2 className="text-xl lg:bg-orange-100 lg:hover:cursor-pointer font-bold lg:font-semibold lg:fixed lg:bottom-3 lg:right-3 flex flex-row lg:flex-col lg:justify-center items-center lg:border-2 lg:border-black rounded-md p-2 gap-1.5 lg:gap-0">
+          <div>Total Rewards:</div>
+          <div>{totalRewardPoints}</div>
+        </h2>
       </div>
       <div className="flex flex-row justify-center mx-28 lg:mx-44 ">
         <table className="min-w-full bg-white border-spacing-y-8 ">
           <thead>
             <tr>
               <th className="py-4 px-4 bg-slate-200 text-left">Brand Name</th>
-              <th className="py-4 px-4 bg-slate-200 text-left">Purchase Date</th>
+              <th className="py-4 px-4 bg-slate-200 text-left">
+                Purchase Date
+              </th>
               <th className="py-4 px-4 bg-slate-200 text-left">Points</th>
             </tr>
           </thead>
-          <tbody className="">
+          <tbody>
             {filteredRewards.map((reward) => (
-              <tr key={reward.id} className=" hover:bg-slate-200 duration-500 ">
-                <td className="py-4 pl-8">
-                <Link to={`/reward/${reward.id}`} className="block w-full h-full">
-                  {reward.brand}
-                </Link>
-                </td>
-                <td className="py-4 px-4">
-                <Link to={`/reward/${reward.id}`} className="block w-full h-full">
-                  {reward.purchaseDate}
-                </Link>
-                </td>
-                <td className="py-4 px-4">
-                <Link to={`/reward/${reward.id}`} className="block w-full h-full">
-                  {reward.rewardPoints}
-                </Link>
-                </td>
+              <tr
+                key={reward.id}
+                className="hover:bg-slate-200 duration-500 cursor-pointer"
+                onClick={() => navigate(`/reward/${reward.id}`)}
+              >
+                <td className="py-4 pl-8">{reward.brand}</td>
+                <td className="py-4 px-4">{reward.purchaseDate}</td>
+                <td className="py-4 px-4">{reward.rewardPoints}</td>
               </tr>
             ))}
           </tbody>
         </table>
       </div>
-      <div className="mb-4 hidden lg:block">
-        <h2 className="text-xl bg-orange-100 hover:cursor-pointer font-semibold fixed bottom-3 right-3 flex flex-col justify-center items-center border-2 border-black rounded-md p-2">
-          <div>
-            
-          Total Rewards:
-          </div>
-          <div>
-
-          {totalRewardPoints}
-          </div>
-        </h2>
-      </div>
+      
     </div>
   );
 }

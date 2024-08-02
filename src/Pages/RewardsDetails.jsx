@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { IoHome } from "react-icons/io5";
-function rewardDetails() {
+function RewardDetails() {
   const { id } = useParams();
   const [reward, setReward] = useState(null);
 
@@ -16,7 +16,7 @@ function rewardDetails() {
   }, [id]);
 
   if (!reward) {
-    return <p>Loading...</p>;
+    return <p>Reward not found!</p>;
   }
 
   // Format the purchase date
@@ -58,4 +58,4 @@ function rewardDetails() {
   );
 }
 
-export default rewardDetails;
+export default RewardDetails;
