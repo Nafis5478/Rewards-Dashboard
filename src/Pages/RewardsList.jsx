@@ -1,23 +1,25 @@
 import React, { useEffect, useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { useSearchParams, useNavigate } from "react-router-dom";
+import { fetchRewards, calculateTotalPoints } from "../redux/rewardsSlice";
 
 function RewardsList() {
-  const [rewards, setRewards] = useState([]);
-  const [filteredRewards, setFilteredRewards] = useState([]);
-  const [totalRewardPoints, setTotalRewardPoints] = useState(0);
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { rewards, loading, error } = useSelector((state) => state.rewards);
+  const [filteredRewards, setFilteredRewards] = useState([]);
+  const [totalRewardPoints, setTotalRewardPoints] = useState(0);
 
   useEffect(() => {
-    fetch("https://mocki.io/v1/68f88502-a805-4d24-a407-ee2a232a5c60")
-      .then((response) => response.json())
-      .then((data) => setRewards(data));
-  }, []);
+    if (rewards.length === 0) {
+      dispatch(fetchRewards());
+    }
+  }, [dispatch, rewards.length]);
 
   useEffect(() => {
     let data = [...rewards];
 
-    // Apply brand filter
     const brand = searchParams.get("brand") || "";
     if (brand) {
       data = data.filter((item) =>
@@ -25,7 +27,6 @@ function RewardsList() {
       );
     }
 
-    // Apply date range filter
     const from = searchParams.get("from") || "";
     const to = searchParams.get("to") || "";
     if (from && to) {
@@ -37,7 +38,6 @@ function RewardsList() {
       });
     }
 
-    // Apply sorting
     const sortKey = searchParams.get("sortKey") || "purchaseDate";
     const sortOrder = searchParams.get("sortOrder") || "asc";
     data = data.sort((a, b) => {
@@ -50,10 +50,13 @@ function RewardsList() {
 
     setFilteredRewards(data);
 
-    // Calculate total reward points
-    const totalPoints = data.reduce((acc, curr) => acc + curr.rewardPoints, 0);
+    // Calculate total reward points using the global function
+    const totalPoints = calculateTotalPoints(data);
     setTotalRewardPoints(totalPoints);
   }, [rewards, searchParams]);
+
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>Error: {error}</p>;
 
   return (
     <div>
@@ -74,6 +77,7 @@ function RewardsList() {
               <th className="py-4 px-4 bg-slate-200 text-left">Points</th>
             </tr>
           </thead>
+
           <tbody>
             {filteredRewards.map((reward) => (
               <tr
@@ -89,7 +93,6 @@ function RewardsList() {
           </tbody>
         </table>
       </div>
-      
     </div>
   );
 }
