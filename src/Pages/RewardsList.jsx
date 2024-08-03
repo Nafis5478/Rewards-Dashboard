@@ -19,14 +19,12 @@ function RewardsList() {
 
   useEffect(() => {
     let data = [...rewards];
-
     const brand = searchParams.get("brand") || "";
     if (brand) {
       data = data.filter((item) =>
         item.brand.toLowerCase().includes(brand.toLowerCase())
       );
     }
-
     const from = searchParams.get("from") || "";
     const to = searchParams.get("to") || "";
     if (from && to) {
@@ -37,7 +35,6 @@ function RewardsList() {
         return purchaseDate >= fromDate && purchaseDate <= toDate;
       });
     }
-
     const sortKey = searchParams.get("sortKey") || "purchaseDate";
     const sortOrder = searchParams.get("sortOrder") || "asc";
     data = data.sort((a, b) => {
@@ -54,9 +51,6 @@ function RewardsList() {
     const totalPoints = calculateTotalPoints(data);
     setTotalRewardPoints(totalPoints);
   }, [rewards, searchParams]);
-
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error: {error}</p>;
 
   return (
     <div>
@@ -92,6 +86,11 @@ function RewardsList() {
             ))}
           </tbody>
         </table>
+      </div>
+      <div className="flex flex-row justify-center mt-28 lg:mt-40 text-3xl">
+        {totalRewardPoints === 0 && "No reward found!"}
+        {loading && "Loading..."}
+        {error && `Error: ${error}`}
       </div>
     </div>
   );

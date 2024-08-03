@@ -1,5 +1,4 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-
 export const fetchRewards = createAsyncThunk(
   "rewards/fetchRewards",
   async () => {
@@ -9,7 +8,6 @@ export const fetchRewards = createAsyncThunk(
     return response.json();
   }
 );
-
 const rewardsSlice = createSlice({
   name: "rewards",
   initialState: {
@@ -34,7 +32,6 @@ const rewardsSlice = createSlice({
       });
   },
 });
-
 // Global function to calculate total points
 export const calculateTotalPoints = (rewards) => {
   return rewards.reduce((acc, curr) => acc + curr.rewardPoints, 0);
