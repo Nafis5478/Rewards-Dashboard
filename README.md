@@ -2,17 +2,11 @@
 
 ## Tech Stack Description
 
-<<<<<<< HEAD
 - **React + Vite**: Using them together can provide an efficient development environment, allows to build modern web applications with better performance and user experience.
 - **Tailwind CSS**: Using Tailwind allows extensive customization and avoids pre-built component styles, offering flexibility in design.
 - **Redux**: Using redux to for State management and to avoid unnecessary API calls, which provides flexible and efficient way to manage application.
 
 ## Setup Guide
-=======
-'''
-npm install
-'''
->>>>>>> eacf695581f26989f72b77713008f831196731f2
 
 To get started with this project, follow the instructions below:
 
