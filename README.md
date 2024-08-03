@@ -60,6 +60,6 @@ After running this in terminal, the server will be started and can be view on `h
   - `redux`: This folder contains two folder viz `rewardsSlice.js` and `store.js`
   - `App.jsx`: Main application component
   - `main.jsx`: Entry point of the application.
-- `public/`: It contains static asset and html files.
+- `public/`: It usually contains static asset and html files (No contents).
 - `vite.config.js`: Vite configuration file
 - `tailwind.config.js`: Tailwind CSS configuration file
